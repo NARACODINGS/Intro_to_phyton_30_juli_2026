@@ -1,0 +1,2 @@
+Ini pesan yang akan muncul dalam pesan_rahasia.txt
+ini tambah data
