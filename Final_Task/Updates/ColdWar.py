@@ -6,6 +6,8 @@
 
 # ---------- CLASS ----------
 
+import random
+
 from Weapon import Weapon
 
 # ---------- DISPLAY FUNCTIONS ----------
@@ -92,10 +94,6 @@ def show_classes():
 def show_weapons(weapons, faction, weapon_class):
     print("\n=== AVAILABLE WEAPONS ===")
     
-    # TODO:
-    # Display weapons belonging to the
-    # selected faction and class
-
     selected_weapons = weapons[faction][weapon_class]
 
     for weapon in selected_weapons:
@@ -131,6 +129,7 @@ def armory_menu(weapons, faction, weapons_class, selected_weapon):
         print("1. Done")
         print("2. Reset")
         print("3. Compare Weapon")
+        print("4. Faction Quiz")
 
         choice = input("Choose an option: ")
 
@@ -160,6 +159,9 @@ def armory_menu(weapons, faction, weapons_class, selected_weapon):
 
         elif choice == "3":
             comparison_menu(weapons, faction, selected_weapon)
+
+        elif choice == "4":
+            quiz_faction(weapons)
 
         else:
             print("\nInvalid choice.")
@@ -220,6 +222,56 @@ def comparison_menu(weapons, faction, selected_weapon):
 
         print("\nInvalid choice. Returning to comparison menu.")
 
+def quiz_faction(weapons):
+
+    score = 0
+    questions = 5
+
+    print("\n=== FACTION QUIZ ===")
+
+    all_weapons = []
+
+    for faction in weapons:
+        for weapon_class in weapons[faction]:
+            for weapon in weapons[faction][weapon_class]:
+                all_weapons.append((weapon, faction))
+
+    for question_number in range(1, questions + 1):
+
+        selected_weapon, correct_faction = random.choice(all_weapons)
+
+        print("\nQuestion", question_number, "of", questions)
+
+        print("\nWeapon:", selected_weapon.name)
+        print("Year of Design:", selected_weapon.year_design)
+        print("Caliber:", selected_weapon.caliber)
+        print("Firing Mode:", selected_weapon.firing_mode)
+
+        print("\nWhich faction does this weapon belong to?")
+        print("1. NATO")
+        print("2. Warsaw Pact")
+
+        choice = input("Your answer: ")
+
+        if choice == "1":
+            answer = "NATO"
+        elif choice == "2":
+            answer = "Warsaw Pact"
+        else:
+            print("\nInvalid choice.")
+            continue
+
+        if answer == correct_faction:
+            print("\nCorrect!")
+            score += 1
+        else:
+            print("\nIncorrect.")
+            print("The correct answer was:", correct_faction)
+
+        print("Score:", score)
+
+    print("\n=== QUIZ COMPLETE ===")
+    print("Final Score:", score, "/", questions)
 # ---------- MAIN PROGRAM ----------
 
 def main():
