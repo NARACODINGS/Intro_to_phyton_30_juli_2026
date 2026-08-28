@@ -297,7 +297,7 @@ def main():
 
         # 3. Display weapons
         show_weapons(weapons, faction, weapons_class)
-
+ 
         # 4. Choose weapon
         selected_weapon = choose_weapon(weapons, faction, weapons_class)
 
